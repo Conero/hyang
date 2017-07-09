@@ -136,8 +136,8 @@ class Net{
      */
     public static function getBaseUrl(){
         return $_SERVER['REQUEST_SCHEME']
-                .'://'.$_SERVER["HTTP_HOST"]
-                .($_SERVER["QUERY_STRING"]? str_replace('?'.$_SERVER["QUERY_STRING"],'',$_SERVER["REQUEST_URI"]):'/');
+        .'://'.$_SERVER["HTTP_HOST"]
+        .($_SERVER["QUERY_STRING"]? str_replace('?'.$_SERVER["QUERY_STRING"],'',$_SERVER["REQUEST_URI"]):'/');
     }
     /**
      * 更加get参数更新地址
@@ -152,11 +152,22 @@ class Net{
             $url = self::getBaseUrl();
         }else{
             $tmp = parse_url($url);
-            $parseData = isset($tmp['query'])? parse_str($tmp['query']):[];
+            if(isset($tmp['query']) && !empty($tmp['query'])){
+                $parseData = parse_str($tmp['query']);
+                $url = substr($url,0,strpos($url,'?'));
+            }else $parseData = [];
             $query = array_merge($parseData,$query);
             $query = !empty($query)? '?'.http_build_query($query):'';
         }
         $url .= ($url? $url:'').$query;
         return $url;
+    }
+    /**
+     * 地址跳转
+     * @param $url
+     */
+    public static function go($url){
+        header('Location: '.$url);
+        exit;
     }
 }

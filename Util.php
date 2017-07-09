@@ -457,4 +457,19 @@ class Util{
         else if ($count < $num) return 1;
         return ceil($count/$num);
     }
+
+    /**
+     * json 字符串 base64 解码编码
+     * @param $data
+     * @return mixed|string
+     */
+    public static function BaseJson($data){
+        if(is_array($data)) return base64_encode(json_encode($data));
+        else if(is_string($data)){
+            // 自动识别是否为 标准的json字符
+            if(preg_match('/[\{"\}\:]{3,}/',$data)) return json_decode($data,true);
+            return json_decode(base64_decode($data),true);
+        }
+        return '';
+    }
 }

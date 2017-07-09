@@ -129,4 +129,34 @@ class Net{
         if(isset($data['origin'])) return $data['origin'];
         return request()->ip();
     }
+
+    /**
+     * 获取基础当前请求域名
+     * @return string
+     */
+    public static function getBaseUrl(){
+        return $_SERVER['REQUEST_SCHEME']
+                .'://'.$_SERVER["HTTP_HOST"]
+                .($_SERVER["QUERY_STRING"]? str_replace('?'.$_SERVER["QUERY_STRING"],'',$_SERVER["REQUEST_URI"]):'/');
+    }
+    /**
+     * 更加get参数更新地址
+     * @param null $url
+     * @param array $query
+     * @return null|string
+     */
+    public static function setQuery($url=null,$query=[]){
+        if(empty($url)){
+            $query = array_merge($_GET,$query);
+            $query = !empty($query)? '?'.http_build_query($query):'';
+            $url = self::getBaseUrl();
+        }else{
+            $tmp = parse_url($url);
+            $parseData = isset($tmp['query'])? parse_str($tmp['query']):[];
+            $query = array_merge($parseData,$query);
+            $query = !empty($query)? '?'.http_build_query($query):'';
+        }
+        $url .= ($url? $url:'').$query;
+        return $url;
+    }
 }

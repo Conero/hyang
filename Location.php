@@ -18,7 +18,7 @@ class Location{
             $lookIp = $ipArr['origin'];
         }
         $info = json_decode(trim(self::getContent('http://ip.taobao.com/service/getIpInfo.php?ip='.$lookIp)),true);
-        if($info['code'] == 1){//数据获取失败
+        if(isset($info['code']) && $info['code'] == 1){//数据获取失败
             $info = array();
             $iplookup = getStr('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js');//未知IP省获取位置
             $info['data'] = json_decode(str_replace('var remote_ip_info = ','',rtrim(trim($iplookup),';')),true);//var remote_ip_info = {"ret":1,"start":-1,"end":-1,"country":"\u4e2d\u56fd","province":"\u9ed1\u9f99\u6c5f","city":"\u54c8\u5c14\u6ee8","district":"","isp":"","type":"","desc":""};

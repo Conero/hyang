@@ -159,7 +159,7 @@ class Net{
             $query = array_merge($parseData,$query);
             $query = !empty($query)? '?'.http_build_query($query):'';
         }
-        $url .= ($url? $url:'').$query;
+        $url = ($url? $url:'').$query;
         return $url;
     }
     /**

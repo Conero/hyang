@@ -13,6 +13,7 @@ class HRedis
 {
     public static $kv = null;
     public static $ref = null; // 值前缀
+    const expire = 24*60*60;  // 有效期
     /**
      * 连接函数
      * @param array $config
@@ -22,7 +23,7 @@ class HRedis
             if(empty($config['host'])) $config['host'] = '127.0.0.1';
             if(empty($config['part'])) $config['part'] = 6379;
             self::$kv = new PHPRedis();
-            self::$kv->connect($config['host'],$config['part']);
+            self::$kv->connect($config['host'],$config['part'],self::expire);
             $rds = new PHPRedis();
             $rds->connect($config['host'],$config['part']);
         }
@@ -42,5 +43,19 @@ class HRedis
         }else if($value){
             return self::$kv->set($vkey,serialize($value));
         }
+    }
+
+    /**
+     * 删除redis列表值
+     * @param $key
+     * @return bool
+     */
+    public static function delete($key){
+        $vkey = self::$ref.':'.$key;
+        if(self::$kv->exists($vkey)){
+            self::$ref->delete($vkey);
+            return true;
+        }
+        return false;
     }
 }

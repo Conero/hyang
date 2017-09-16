@@ -27,9 +27,9 @@ class Net{
                 ]
             ];
             $context  = stream_context_create($opts);
-            $res = file_get_contents($url, false, $context);
+            $res = @file_get_contents($url, false, $context);
         }
-        else $res = file_get_contents($url);
+        else $res = @file_get_contents($url);
         self::$netSourceText = $res;
         return $res;
     }

@@ -119,14 +119,14 @@ class SuPigeons
                     $header = isset($opt['header'])? $opt['header']: [];
                     $header['Conero-Token'] = $this->token;
                     if($this->conero_pid) $header['Conero-Pid'] = $this->conero_pid;
-                    $opt['header'] = $header;
-                    return $opt;
+                    return $header;
                 });
             }
             $res = $net->exec();
             $res = $res ? json_decode($res, true) : [];
         }catch (\Exception $e){
-            $this->e = $e->getMessage().
+            //println($e->getMessage(), 'OP');
+            $this->e = $e->getMessage()."\r\n".
             ($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;

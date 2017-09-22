@@ -4,7 +4,6 @@
  * 2017年1月17日 星期二
  */
 namespace hyang;
-use hyang\Util;
 class Net{
     private static $netUrl;
     private static $netSourceText;              // 最新的文本内容
@@ -89,9 +88,17 @@ class Net{
                 if('POST' == strtoupper($method)){
                     $header[] = 'Content-type: application/x-www-form-urlencoded';
                 }
-                if($header){
-                    $opts[$protocol]['header'] = $header;
+            }
+            if($header){
+                $newHeader = [];
+                foreach ($header as $hdKey=>$hdValue){
+                    if(is_int($hdKey)){
+                        $newHeader[] = $hdValue;
+                        continue;
+                    }
+                    if(!is_array($hdValue)) $newHeader[] = $hdKey.': '.$hdValue;
                 }
+                $opts[$protocol]['header'] = $newHeader;
             }
             $context  = stream_context_create($opts);
             $res = file_get_contents($url, false, $context);

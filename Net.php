@@ -84,9 +84,24 @@ class Net{
                 'method' => $method,
             ];
             if($data){
-                $opts[$protocol]['content'] = http_build_query($data);
                 if('POST' == strtoupper($method)){
-                    $header[] = 'Content-type: application/x-www-form-urlencoded';
+                    $opts[$protocol]['content'] = http_build_query($data);//debug([$header, 1]);
+                    $header[] = 'Content-type: application/x-www-form-urlencoded';//debug([$header, 2]);
+                }
+                // GET 传参数
+                elseif ('GET' == strtoupper($method)){
+                    //debug([http_build_query($data)]);
+                    //$url =
+                    if(is_array($data)){
+                        $tmpUrl = parse_url($url);
+                        $baseData = [];
+                        if(isset($tmpUrl['query'])){
+                            $url = str_replace('?'.$tmpUrl['query'], '', $url);
+                            parse_str($tmpUrl['query'], $baseData);
+                        }
+                        $queryStr = http_build_query(array_merge($baseData, $data));
+                        $url .= '?'.$queryStr;
+                    }
                 }
             }
             if($header){
@@ -100,10 +115,20 @@ class Net{
                 }
                 $opts[$protocol]['header'] = $newHeader;
             }
+            //debug($opts);
             $context  = stream_context_create($opts);
             $res = file_get_contents($url, false, $context);
         }
         return $res;
+    }
+
+    /**
+     * 直接获取json，通过相应
+     * @return array|mixed
+     */
+    public function getJsonByExec(){
+        $res = $this->exec();
+        return $res? json_decode($res, true): [];
     }
     // curl 获取数据 * 设置 $data 时 为POST/否则GET
     // $data = {url:请求地址,type:post,post:array,curlopt:curl 参数值}/string; 

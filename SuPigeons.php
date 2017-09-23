@@ -21,6 +21,8 @@ class SuPigeons
 
     private static $instance;
     private $e;
+    public $errorMsg;
+    public $errorTrace;
     private $result;
     private function __construct(){}
     public $debug = false;
@@ -41,8 +43,11 @@ class SuPigeons
                 $this->token = $res;
             }
         }catch (\Exception $e){
-            $this->e = $e->getMessage().
-                ($this->debug)? $e->getTraceAsString(): '';
+            $this->e = $e;
+            $this->errorMsg = $e->getMessage();
+            $this->errorTrace = $e->getTraceAsString();
+            //$this->e = $e->getMessage().
+            //    ($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
     }
@@ -63,8 +68,11 @@ class SuPigeons
                 $res = $this->openid;
             }
         }catch (\Exception $e){
-            $this->e = $e->getMessage().
-            ($this->debug)? $e->getTraceAsString(): '';
+            $this->e = $e;
+            $this->errorMsg = $e->getMessage();
+            $this->errorTrace = $e->getTraceAsString();
+            //$this->e = $e->getMessage().
+            //($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
     }
@@ -93,7 +101,13 @@ class SuPigeons
     /**
      * @return mixed
      */
-    public function getError(){return $this->e;}
+    public function getError(){
+        if($this->e instanceof \Exception){
+            return $this->e->getMessage();
+        }
+        //debug($this->e);
+        return $this->e;
+    }
 
     /**
      * @return mixed
@@ -104,9 +118,10 @@ class SuPigeons
 
     /**
      * @param $url string
+     * @param $data null|array
      * @return array|mixed|null|string
      */
-    public function get($url){
+    public function get($url, $data=null){
         $url = $this->urlPref .$url;
         $res = null;
         try{
@@ -122,15 +137,28 @@ class SuPigeons
                     return $header;
                 });
             }
-            $res = $net->exec();
-            $res = $res ? json_decode($res, true) : [];
+            if($data){
+                $net->setOption('data', $data);
+            }
+            //$res = $net->exec();
+            //$res = $res ? json_decode($res, true) : [];
+            $res = $net->getJsonByExec();
         }catch (\Exception $e){
-            //println($e->getMessage(), 'OP');
-            $this->e = $e->getMessage()."\r\n".
-            ($this->debug)? $e->getTraceAsString(): '';
+            $this->e = $e;
+            $this->errorMsg = $e->getMessage();
+            $this->errorTrace = $e->getTraceAsString();
+            //debug([$e->getMessage(), 'OP']);
+            //$this->e = $e->getMessage()."\r\n".
+            //($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
     }
+
+    /**
+     * @param $url
+     * @param array $data
+     * @return array|mixed|null
+     */
     public function post($url, $data=array()){
         $url = $this->urlPref .$url;
         $res = null;
@@ -148,15 +176,20 @@ class SuPigeons
                     $header = isset($opt['header'])? $opt['header']: [];
                     $header['Conero-Token'] = $this->token;
                     if($this->conero_pid) $header['Conero-Pid'] = $this->conero_pid;
-                    $opt['header'] = $header;
-                    return $opt;
+                    return $header;
                 });
             }
-            $res = $net->exec();
-            $res = $res ? json_decode($res, true) : [];
+            //$res = $net->exec();
+            //$res = $res ? json_decode($res, true) : [];
+            //debug([$url, $data, $this->token, $net->getOption('header')]);
+            $res = $net->getJsonByExec();
         }catch (\Exception $e){
-            $this->e = $e->getMessage().
-            ($this->debug)? $e->getTraceAsString(): '';
+            $this->e = $e;
+            $this->errorMsg = $e->getMessage();
+            $this->errorTrace = $e->getTraceAsString();
+            //debug($e->getMessage());
+            //$this->e = $e->getMessage().
+            //($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
     }

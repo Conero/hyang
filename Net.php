@@ -123,6 +123,14 @@ class Net{
     }
 
     /**
+     * https 请求
+     * @return array
+     */
+    public function sslOption($data=null){
+        $opt = [];
+        return $opt;
+    }
+    /**
      * 直接获取json，通过相应
      * @return array|mixed
      */

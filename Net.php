@@ -137,7 +137,6 @@ class Net{
      */
     public function getJsonByExec(){
         $res = $this->exec();
-        debug($res, ($res? json_decode($res, true): []));
         return $res? json_decode($res, true): [];
     }
     // curl 获取数据 * 设置 $data 时 为POST/否则GET

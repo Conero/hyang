@@ -87,7 +87,6 @@ class SuPigeons
         if(isset($option['code'])) self::$instance->code = $option['code'];
         if(isset($option['user'])) self::$instance->user = $option['user'];
         if(isset($option['conero_pid'])) self::$instance->conero_pid = $option['conero_pid'];
-        //Util::println($option);
         return self::$instance;
     }
 

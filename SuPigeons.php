@@ -16,8 +16,8 @@ class SuPigeons
     private $access_token = '';
     private $code = '';
     private $user = '';
-    private $token = '';
-    private $conero_pid = '';
+    public $token = '';
+    public $conero_pid = '';
 
     private static $instance;
     private $e;
@@ -35,8 +35,8 @@ class SuPigeons
             if (empty($this->openid)) $this->getOpenid();
             $url = sprintf($this->urlPref . 'api/token/token?openid=%s', $this->openid);
             $res = Net::prepare($url)
-                ->exec();
-            $res = $res ? json_decode($res, true) : [];
+                ->getJsonByExec()
+                ;
             $this->result = $res;
             if(isset($res['token'])){
                 $res = $res['token'];
@@ -60,8 +60,7 @@ class SuPigeons
                     'user' => $user ? $user : $this->user
                 ]);
             $res = Net::prepare($url)
-                ->exec();
-            $res = $res ? json_decode($res, true) : [];
+                ->getJsonByExec();
             $this->result = $res;
             if (isset($res['code']) && '200' == $res['code']){
                 $this->openid = $res['openID'];

@@ -115,7 +115,8 @@ class Net{
                 }
                 $opts[$protocol]['header'] = $newHeader;
             }
-            //debug($opts);
+             //debug([$opts, $url]);
+            //ifdebug(strpos($url, 'openId') !== false, $opts, $url);
             $context  = stream_context_create($opts);
             $res = file_get_contents($url, false, $context);
         }
@@ -136,6 +137,7 @@ class Net{
      */
     public function getJsonByExec(){
         $res = $this->exec();
+        debug($res, ($res? json_decode($res, true): []));
         return $res? json_decode($res, true): [];
     }
     // curl 获取数据 * 设置 $data 时 为POST/否则GET

@@ -16,11 +16,13 @@ class SuPigeons
     private $access_token = '';
     private $code = '';
     private $user = '';
-    private $token = '';
-    private $conero_pid = '';
+    public $token = '';
+    public $conero_pid = '';
 
     private static $instance;
     private $e;
+    public $errorMsg;
+    public $errorTrace;
     private $result;
     private function __construct(){}
     public $debug = false;
@@ -33,16 +35,19 @@ class SuPigeons
             if (empty($this->openid)) $this->getOpenid();
             $url = sprintf($this->urlPref . 'api/token/token?openid=%s', $this->openid);
             $res = Net::prepare($url)
-                ->exec();
-            $res = $res ? json_decode($res, true) : [];
+                ->getJsonByExec()
+                ;
             $this->result = $res;
             if(isset($res['token'])){
                 $res = $res['token'];
                 $this->token = $res;
             }
         }catch (\Exception $e){
-            $this->e = $e->getMessage().
-                ($this->debug)? $e->getTraceAsString(): '';
+            $this->e = $e;
+            $this->errorMsg = $e->getMessage();
+            $this->errorTrace = $e->getTraceAsString();
+            //$this->e = $e->getMessage().
+            //    ($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
     }
@@ -55,16 +60,18 @@ class SuPigeons
                     'user' => $user ? $user : $this->user
                 ]);
             $res = Net::prepare($url)
-                ->exec();
-            $res = $res ? json_decode($res, true) : [];
+                ->getJsonByExec();
             $this->result = $res;
             if (isset($res['code']) && '200' == $res['code']){
                 $this->openid = $res['openID'];
                 $res = $this->openid;
             }
         }catch (\Exception $e){
-            $this->e = $e->getMessage().
-            ($this->debug)? $e->getTraceAsString(): '';
+            $this->e = $e;
+            $this->errorMsg = $e->getMessage();
+            $this->errorTrace = $e->getTraceAsString();
+            //$this->e = $e->getMessage().
+            //($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
     }
@@ -80,7 +87,6 @@ class SuPigeons
         if(isset($option['code'])) self::$instance->code = $option['code'];
         if(isset($option['user'])) self::$instance->user = $option['user'];
         if(isset($option['conero_pid'])) self::$instance->conero_pid = $option['conero_pid'];
-        //Util::println($option);
         return self::$instance;
     }
 
@@ -93,7 +99,13 @@ class SuPigeons
     /**
      * @return mixed
      */
-    public function getError(){return $this->e;}
+    public function getError(){
+        if($this->e instanceof \Exception){
+            return $this->e->getMessage();
+        }
+        //debug($this->e);
+        return $this->e;
+    }
 
     /**
      * @return mixed
@@ -104,9 +116,10 @@ class SuPigeons
 
     /**
      * @param $url string
+     * @param $data null|array
      * @return array|mixed|null|string
      */
-    public function get($url){
+    public function get($url, $data=null){
         $url = $this->urlPref .$url;
         $res = null;
         try{
@@ -119,18 +132,31 @@ class SuPigeons
                     $header = isset($opt['header'])? $opt['header']: [];
                     $header['Conero-Token'] = $this->token;
                     if($this->conero_pid) $header['Conero-Pid'] = $this->conero_pid;
-                    $opt['header'] = $header;
-                    return $opt;
+                    return $header;
                 });
             }
-            $res = $net->exec();
-            $res = $res ? json_decode($res, true) : [];
+            if($data){
+                $net->setOption('data', $data);
+            }
+            //$res = $net->exec();
+            //$res = $res ? json_decode($res, true) : [];
+            $res = $net->getJsonByExec();
         }catch (\Exception $e){
-            $this->e = $e->getMessage().
-            ($this->debug)? $e->getTraceAsString(): '';
+            $this->e = $e;
+            $this->errorMsg = $e->getMessage();
+            $this->errorTrace = $e->getTraceAsString();
+            //debug([$e->getMessage(), 'OP']);
+            //$this->e = $e->getMessage()."\r\n".
+            //($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
     }
+
+    /**
+     * @param $url
+     * @param array $data
+     * @return array|mixed|null
+     */
     public function post($url, $data=array()){
         $url = $this->urlPref .$url;
         $res = null;
@@ -148,15 +174,20 @@ class SuPigeons
                     $header = isset($opt['header'])? $opt['header']: [];
                     $header['Conero-Token'] = $this->token;
                     if($this->conero_pid) $header['Conero-Pid'] = $this->conero_pid;
-                    $opt['header'] = $header;
-                    return $opt;
+                    return $header;
                 });
             }
-            $res = $net->exec();
-            $res = $res ? json_decode($res, true) : [];
+            //$res = $net->exec();
+            //$res = $res ? json_decode($res, true) : [];
+            //debug([$url, $data, $this->token, $net->getOption('header')]);
+            $res = $net->getJsonByExec();
         }catch (\Exception $e){
-            $this->e = $e->getMessage().
-            ($this->debug)? $e->getTraceAsString(): '';
+            $this->e = $e;
+            $this->errorMsg = $e->getMessage();
+            $this->errorTrace = $e->getTraceAsString();
+            //debug($e->getMessage());
+            //$this->e = $e->getMessage().
+            //($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
     }

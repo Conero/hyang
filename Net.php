@@ -4,7 +4,6 @@
  * 2017年1月17日 星期二
  */
 namespace hyang;
-use hyang\Util;
 class Net{
     private static $netUrl;
     private static $netSourceText;              // 最新的文本内容
@@ -85,18 +84,60 @@ class Net{
                 'method' => $method,
             ];
             if($data){
-                $opts[$protocol]['content'] = http_build_query($data);
                 if('POST' == strtoupper($method)){
-                    $header[] = 'Content-type: application/x-www-form-urlencoded';
+                    $opts[$protocol]['content'] = http_build_query($data);//debug([$header, 1]);
+                    $header[] = 'Content-type: application/x-www-form-urlencoded';//debug([$header, 2]);
                 }
-                if($header){
-                    $opts[$protocol]['header'] = $header;
+                // GET 传参数
+                elseif ('GET' == strtoupper($method)){
+                    //debug([http_build_query($data)]);
+                    //$url =
+                    if(is_array($data)){
+                        $tmpUrl = parse_url($url);
+                        $baseData = [];
+                        if(isset($tmpUrl['query'])){
+                            $url = str_replace('?'.$tmpUrl['query'], '', $url);
+                            parse_str($tmpUrl['query'], $baseData);
+                        }
+                        $queryStr = http_build_query(array_merge($baseData, $data));
+                        $url .= '?'.$queryStr;
+                    }
                 }
             }
+            if($header){
+                $newHeader = [];
+                foreach ($header as $hdKey=>$hdValue){
+                    if(is_int($hdKey)){
+                        $newHeader[] = $hdValue;
+                        continue;
+                    }
+                    if(!is_array($hdValue)) $newHeader[] = $hdKey.': '.$hdValue;
+                }
+                $opts[$protocol]['header'] = $newHeader;
+            }
+             //debug([$opts, $url]);
+            //ifdebug(strpos($url, 'openId') !== false, $opts, $url);
             $context  = stream_context_create($opts);
             $res = file_get_contents($url, false, $context);
         }
         return $res;
+    }
+
+    /**
+     * https 请求
+     * @return array
+     */
+    public function sslOption($data=null){
+        $opt = [];
+        return $opt;
+    }
+    /**
+     * 直接获取json，通过相应
+     * @return array|mixed
+     */
+    public function getJsonByExec(){
+        $res = $this->exec();
+        return $res? json_decode($res, true): [];
     }
     // curl 获取数据 * 设置 $data 时 为POST/否则GET
     // $data = {url:请求地址,type:post,post:array,curlopt:curl 参数值}/string; 

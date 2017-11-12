@@ -107,14 +107,15 @@ class Bootstrap{
      * 主键控件自动生成 2017年5月21日 星期日
      * @param null $data 数据 默认获取 param()
      * @param null $pk 主键默认 listid
+     * @param bool $rawMk 原始字符
      * @return string
      */
-    public static function formPkGrid($data=null,$pk=null){
+    public static function formPkGrid($data=null,$pk=null, $rawMk=false){
         $data = $data? $data: request()->param();
         $pk = $pk? $pk:'listid';
         $xhtml = '';
         if(isset($data[$pk])){
-            $xhtml = '<input type="hidden" name="pk" value="'.base64_encode($data[$pk]).'">';
+            $xhtml = '<input type="hidden" name="pk" value="'.$rawMk? $data[$pk]: base64_encode($data[$pk]).'">';
         }
         return $xhtml;
     }

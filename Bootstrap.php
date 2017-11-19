@@ -115,7 +115,7 @@ class Bootstrap{
         $pk = $pk? $pk:'listid';
         $xhtml = '';
         if(isset($data[$pk])){
-            $xhtml = '<input type="hidden" name="pk" value="'.$rawMk? $data[$pk]: base64_encode($data[$pk]).'">';
+            $xhtml = '<input type="hidden" name="pk" value="'.($rawMk? $data[$pk]: base64_encode($data[$pk])).'">';
         }
         return $xhtml;
     }

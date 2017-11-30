@@ -33,7 +33,7 @@ class SuPigeons
         $res = null;
         try {
             if (empty($this->openid)) $this->getOpenid();
-            $url = sprintf($this->urlPref . 'api/token/token?openid=%s', $this->openid);
+            $url = sprintf($this->urlPref . 'token/token?openid=%s', $this->openid);
             $res = Net::prepare($url)
                 ->getJsonByExec()
                 ;
@@ -54,7 +54,7 @@ class SuPigeons
     public function getOpenid($user=''){
         $res = null;
         try {
-            $url = $this->urlPref . 'api/token/openid?' . http_build_query([
+            $url = $this->urlPref . 'token/openid?' . http_build_query([
                     'access_token' => $this->access_token,
                     'code' => $this->code,
                     'user' => $user ? $user : $this->user

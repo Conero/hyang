@@ -16,10 +16,14 @@ class Bootstrap{
      * @param $data []json|callback 数据
      * @return string
      */
-    public function tbodyGrid($clos,$data){
+    public function tbodyGrid($clos, $data){
         $xhtml = '';
         if(is_string($clos)) $clos = explode(',',$clos);
         if($data instanceof \Closure) $data = call_user_func($data);
+        // 转变为数组类型
+        if(is_object($data) && method_exists($data, 'toArray')){
+            $data = $data->toArray();
+        }
         $data = is_array($data)? $data:[];
         $i = 1;
         foreach ($data as $v){

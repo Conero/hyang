@@ -472,4 +472,18 @@ class Util{
         }
         return '';
     }
+    /**
+     * @return string
+     */
+    public static function getBaseUrl($url=''){
+        $port = $_SERVER['SERVER_PORT'];
+        $scheme = $_SERVER['REQUEST_SCHEME'];
+        if(($port == 80 && $scheme == 'http') || ($port == 443 && $scheme == 'https')){
+            $port = '';
+        }
+        else{
+            $port = ':'. $port;
+        }
+        return $scheme.'://'.$_SERVER['SERVER_NAME'].$port.$url;
+    }
 }

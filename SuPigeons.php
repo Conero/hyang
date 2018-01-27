@@ -191,4 +191,22 @@ class SuPigeons
         }
         return $res;
     }
+    public function rawRequest($url, $option=array()){
+        $url = $this->urlPref .$url;
+        //println($url);
+        $method = isset($option['method'])? strtolower($option['method']):'get';    // 请求方法
+        $data = isset($option['data'])? $option['data']:false;          // 发送的数据
+        $net = Net::prepare($url);
+        if($method == 'post'){
+            $net->setOption('method', 'POST');
+            //println($option);
+        }else{
+            $net->setOption('method', 'GET');
+        }
+        // 请求数据
+        if($data){
+            $net->setOption('data', $data);
+        }
+        return $net->getJsonByExec();
+    }
 }

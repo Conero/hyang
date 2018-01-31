@@ -91,6 +91,19 @@ class SuPigeons
     }
 
     /**
+     * 获取项目私有对象
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if(property_exists($this, $name)){
+            return $this->$name;
+        }
+        return false;
+    }
+
+    /**
      * @param $user string
      * @return $this
      */

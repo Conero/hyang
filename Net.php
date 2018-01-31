@@ -115,8 +115,9 @@ class Net{
                 }
                 $opts[$protocol]['header'] = $newHeader;
             }
-             //debug([$opts, $url]);
+//             debug([$opts, $url]);
             //ifdebug(strpos($url, 'openId') !== false, $opts, $url);
+            println($opts);
             $context  = stream_context_create($opts);
             $res = file_get_contents($url, false, $context);
         }
@@ -276,5 +277,68 @@ class Net{
     public static function go($url){
         header('Location: '.$url);
         exit;
+    }
+
+    /**
+     * 支持 https 的请求封装，测试 php7+, 需要在 php5 环境下测试
+     * @param array|string $option {url, data, method, header}
+     * @return mixed
+     */
+    public static function curls($option){
+        // 数据预处理
+        $method ='GET';
+        $data = null;
+        /**
+        $headers = array(
+        　　 'api-key:'.$key,
+        　　 'authorization:'.$authorization,
+        );
+         */
+        $header = null;
+        if(is_array($option)){
+            if(isset($option['data'])){ // 头部信息
+                $data = $option['data'];
+            }
+            if(isset($option['header'])){ // 头部信息
+                $header = $option['header'];
+            }
+            $url = $option['url'];
+            $method = isset($option['method'])? $option['method']: $method;
+        }
+        else{
+            $url = $option;
+        }
+
+        $method = strtoupper($method);
+        $ch = curl_init();
+        if($method == 'GET' && is_array($data)){
+            $tmpUrl = parse_url($url);
+            $baseData = [];
+            if(isset($tmpUrl['query'])){
+                $url = str_replace('?'.$tmpUrl['query'], '', $url);
+                parse_str($tmpUrl['query'], $baseData);
+            }
+            $queryStr = http_build_query(array_merge($baseData, $data));
+            $url .= '?'.$queryStr;
+        }
+        curl_setopt($ch,CURLOPT_URL,$url);
+        // 头部信息设置
+        if($header){
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        }
+        // post 类型
+        if('POST' == $method){
+            curl_setopt ($ch, CURLOPT_POST, 1 );
+            if($data){
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
+            }
+        }
+        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);  // 从证书中检查SSL加密算法是否存在
+        curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // 模拟用户使用的浏览器
+        $res = curl_exec($ch);
+        curl_close($ch);
+        return $res;
     }
 }

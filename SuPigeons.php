@@ -204,6 +204,13 @@ class SuPigeons
         }
         return $res;
     }
+
+    /**
+     * 原始 网络请求
+     * @param $url
+     * @param array $option
+     * @return array|mixed
+     */
     public function rawRequest($url, $option=array()){
         $url = $this->urlPref .$url;
         //println($url);
@@ -221,5 +228,22 @@ class SuPigeons
             $net->setOption('data', $data);
         }
         return $net->getJsonByExec();
+    }
+
+    /**
+     * curl 封装的数据请求
+     * @param string $url
+     * @param array $options
+     * @return bool|mixed
+     */
+    public function curl($url, $options=array()){
+        $url = $this->urlPref .$url;
+        $options['url'] = $url;
+        $str = Net::curls($options);
+        $retVal = false;
+        if($str){
+            $retVal = json_decode($str, true);
+        }
+        return $retVal;
     }
 }

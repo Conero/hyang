@@ -115,9 +115,9 @@ class Net{
                 }
                 $opts[$protocol]['header'] = $newHeader;
             }
-//             debug([$opts, $url]);
+            //debug([$opts, $url]);
             //ifdebug(strpos($url, 'openId') !== false, $opts, $url);
-            println($opts);
+            //println($opts);
             $context  = stream_context_create($opts);
             $res = file_get_contents($url, false, $context);
         }
@@ -308,7 +308,6 @@ class Net{
         else{
             $url = $option;
         }
-
         $method = strtoupper($method);
         $ch = curl_init();
         if($method == 'GET' && is_array($data)){
@@ -324,7 +323,15 @@ class Net{
         curl_setopt($ch,CURLOPT_URL,$url);
         // 头部信息设置
         if($header){
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+            $stdHeader = [];
+            foreach ($header as $key=>$value){
+                if(is_numeric($key)){
+                    $stdHeader[] = $value;
+                }else{
+                    $stdHeader[] = $key.':'.$value;
+                }
+            }
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $stdHeader);
         }
         // post 类型
         if('POST' == $method){

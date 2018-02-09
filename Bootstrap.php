@@ -141,7 +141,7 @@ class Bootstrap{
         }
         $value = isset($_GET['svalue'])? $_GET['svalue']:'';
         if($value && $key){
-            $where[$key] = ['like',"%$value%"];
+            $where[] = [$key, 'like',"%$value%"];
         }
         return $where;
     }

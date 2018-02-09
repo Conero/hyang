@@ -66,6 +66,32 @@ class Util{
     }
 
     /**
+     * 删除多级目录
+     * @param string $path 目录
+     * @return boolean
+     */
+    public static function rmdirs($path){
+        // 不是目录，表名无需删除返回成功
+        if(!is_dir($path)){
+            $isSuccess = true;
+        }else{
+            foreach (scandir($path) as $v){
+                if(in_array($v, ['.', '..'])){
+                    continue;
+                }
+                $nPath = $path.(substr($path, -1) == '/'? '':'/').$v;
+                if(is_file($nPath)){
+                    unlink($nPath);
+                }elseif (is_dir($nPath)){
+                    self::rmdirs($nPath);
+                }
+            }
+            $isSuccess = rmdir($path);
+        }
+        return $isSuccess;
+    }
+    
+    /**
      * 系统调试输出
      * @param mixed  $data      输出变量/回掉函数
      * @param bool   $feek      输出到屏幕/文件

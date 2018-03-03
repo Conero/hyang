@@ -89,11 +89,12 @@ class Bootstrap{
 
     /**
      * 生成 radio 控件
-     * @param $option array|string
-     * @param null $checked
+     * @param array|string $option 属性参数值
+     * @param null|bool $checked 选中标记
+     * @param null|string $type 属性的默认类型
      * @return string
      */
-    public static function RadioGrid($option,$checked=null){
+    public static function RadioGrid($option,$checked=null, $type=null){
         $attr = is_string($option)? $option:'';
         if(empty($attr)) {
             $attrArr = [];
@@ -104,7 +105,8 @@ class Bootstrap{
         }
         if($checked) $attr .= ' checked';
         if($attr) $attr = ' '.$attr;
-        $xhtml = '<input type="radio"'.$attr.'>';
+        $type = $type? $type: 'radio';
+        $xhtml = '<input type="'.$type.'"'.$attr.'>';
         return $xhtml;
     }
     /**

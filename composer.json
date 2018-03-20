@@ -1,0 +1,15 @@
+{
+    "name": "hyang/data",
+    "version": "0.0.1",
+    "release": "20180320",
+    "date":"20180320",
+    "description": "数据处理集",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Joshua Conero",
+            "email": "brximl@163.com"
+        }
+    ],
+    "require": {}
+}

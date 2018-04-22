@@ -30,6 +30,7 @@ class SuPigeons
      * 获取 token值
      */
     public function getToken(){
+        /*
         $res = null;
         try {
             if (empty($this->openid)) $this->getOpenid();
@@ -41,6 +42,8 @@ class SuPigeons
             if(isset($res['token'])){
                 $res = $res['token'];
                 $this->token = $res;
+            }else{
+                $res = null;
             }
         }catch (\Exception $e){
             $this->e = $e;
@@ -50,8 +53,34 @@ class SuPigeons
             //    ($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
+        */
+        $token = $this->token;
+        if(!$token){
+            $header = [
+                'Conero-Code' => $this->code,
+                'Conero-Pid'  => $this->conero_pid
+            ];
+            // 获取用户信息
+            $options = [
+                'data' => [
+                    'openid' => $this->getOpenid()
+                ],
+                'header' => $header
+            ];
+            $res = $this->curl('token/token', $options);
+            debugOut([
+                $res,
+                $options
+            ]);
+            if($res && $res['code'] == '200'){
+                $token = $res['token'];
+                $this->token = $token;
+            }
+        }
+        return $token;
     }
     public function getOpenid($user=''){
+        /*
         $res = null;
         try {
             $url = $this->urlPref . 'token/openid?' . http_build_query([
@@ -74,6 +103,27 @@ class SuPigeons
             //($this->debug)? $e->getTraceAsString(): '';
         }
         return $res;
+        */
+
+        $openid = null;
+        $header = [
+            'Conero-Code' => $this->code,
+            'Conero-Pid'  => $this->conero_pid
+        ];
+        // 获取用户信息
+        $options = [
+            'data' => [
+                'user' => $user ? $user : $this->user,
+                'access_token' => $this->access_token,
+                'code'  => $this->code
+            ],
+            'header' => $header
+        ];
+        $res = $this->curl('token/openid', $options);
+        if($res && $res['code'] == 200){
+            $openid = $res['openID'];
+        }
+        return $openid;
     }
     /**
      * @return SuPigeons

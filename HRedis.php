@@ -22,12 +22,14 @@ class HRedis
         if(empty(self::$kv)){
             if(empty($config['host'])) $config['host'] = '127.0.0.1';
             if(empty($config['part'])) $config['part'] = 6379;
-            self::$kv = new PHPRedis();
-            self::$kv->connect($config['host'],$config['part'],self::expire);
-            $rds = new PHPRedis();
-            $rds->connect($config['host'],$config['part']);
+            try{
+                self::$kv = new PHPRedis();
+                self::$kv->connect($config['host'],$config['part'],self::expire);
+                $rds = new PHPRedis();
+                $rds->connect($config['host'],$config['part']);
+            }catch (\Exception $e){}
         }
-        if(empty(self::$ref)) self::$ref = isset($data['ref'])? $data['ref']:'hyang';
+        if(empty(self::$ref)) self::$ref = isset($config['ref'])? $config['ref']:'hyang';
     }
 
     /**

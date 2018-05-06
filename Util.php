@@ -439,7 +439,38 @@ class Util{
          }
          return $data;
      }
-
+    /**
+     * 获取并删除键值数据
+     * @param $key
+     * @param $map
+     * @return null
+     */
+    public static function getKeyAndDel($key, &$map){
+        $value = null;
+        if(isset($map[$key])){
+            $value = $map[$key];
+            unset($map[$key]);
+        }
+        return $value;
+    }
+    /**
+     * 删除数据键值列表
+     * @param array $arr
+     * @param string|array $keys 字符串(带,符号),数组
+     * @return array
+     */
+    public static function clearArrKey($arr, $keys){
+        if(is_string($keys) && false !== strpos($keys, ',')){
+            $keys = explode(',', preg_replace('/\s/', '', $keys));
+        }
+        $keys = is_array($keys)? $keys:[$keys];
+        foreach ($keys as $k){
+            if(isset($arr[$k])){
+                unset($arr[$k]);
+            }
+        }
+        return $arr;
+    }
     /**
      * 获取GET/POST 请求的值
      * @param null $key 键值

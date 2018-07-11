@@ -9,10 +9,15 @@
 namespace hyang\surong\cmd;
 
 
-class Controller
+class Controller implements InterContrl
 {
     function __construct()
     {
-        // @TODO: 逻辑实现
+        // TODO: 逻辑实现
+    }
+    // 默认地址
+    function DefaultAction()
+    {
+        // TODO: Implement DefaultAction() method.
     }
 }

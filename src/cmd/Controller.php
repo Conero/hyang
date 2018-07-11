@@ -9,15 +9,16 @@
 namespace hyang\surong\cmd;
 
 
-class Controller implements InterContrl
+abstract class Controller implements InterContrl
 {
+    protected $cmdOption = array();
+    protected $cmdArgs = array();
+    protected $cwd;
     function __construct()
     {
         // TODO: 逻辑实现
-    }
-    // 默认地址
-    function DefaultAction()
-    {
-        // TODO: Implement DefaultAction() method.
+        $this->cmdArgs = Cmd::getArgs();
+        $this->cmdOption = Cmd::getOption();
+        $this->cwd = Cmd::getDir();
     }
 }

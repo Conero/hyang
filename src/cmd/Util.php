@@ -11,25 +11,5 @@ namespace hyang\surong\cmd;
 
 class Util
 {
-    /**
-     * 多级目生成
-     * @param string $dir
-     * @return bool
-     */
-    static function mkdirs($dir){
-        if(!is_dir($dir)){
-            $dir = str_replace('\\', '/', $dir);
-            $pDirQue = [];
-            foreach (explode('/', $dir) as $name){
-                $pDirQue[] = $name;
-                $pDir = implode('/', $pDirQue);
-                if(!is_dir($pDir)){
-                    mkdir($pDir);
-                }
-            }
-            return true;
-        }
-        return false;
-
-    }
+    // TODO: static 类
 }

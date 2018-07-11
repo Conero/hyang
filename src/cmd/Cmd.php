@@ -87,7 +87,6 @@ class Cmd
         if($action && $command){
             foreach (self::$_rdo_routerTpl as $tpl => $callback){
                 $reqQueue = explode('/', $tpl);
-                print_r($reqQueue);
                 $cmd1 = $reqQueue[0] ?? false;
                 $act1 = $reqQueue[1] ?? false;
                 // command
@@ -137,7 +136,7 @@ class Cmd
      * @param array $argv
      */
     static function Run($argv){
-        self::$_rdo_dir = str_replace('\\', '/', getmypid()). '/';
+        self::$_rdo_dir = str_replace('\\', '/', getcwd()). '/';
         self::parseArgs($argv);
         $command = self::$_rdo_command;
         $successMk = false;

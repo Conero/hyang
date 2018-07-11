@@ -172,6 +172,19 @@ class Cmd
     }
 
     /**
+     * 项目初始化
+     * @param null|string $dir
+     */
+    static function Init($dir=null){
+        $dir = $dir ?? './';
+        spl_autoload_register(function ($class) use ($dir){
+            $file = $dir . $class .'.php';
+            if(is_file($file)){
+                require_once $file;
+            }
+        });
+    }
+    /**
      * 参数解析
      * @param array $args
      */

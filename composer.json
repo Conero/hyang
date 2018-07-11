@@ -1,0 +1,23 @@
+{
+    "name": "hyang/surong/cmd",
+    "version": "0.0.1",
+    "build": "20180711",
+    "description": "命令行程序包",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Joshua Conero",
+            "email": "brximl@163.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "hyang\\surong\\cmd\\": "src/cmd"
+        }
+    },
+    "require-dev": {
+    }
+}

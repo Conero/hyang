@@ -16,6 +16,7 @@ $batFileName = __DIR__. '/'. $batName.'.bat';
 $batContent = '
 cd data
 git clone '.$url.' --branch=cmd
+pause ..
 ';
 
 file_put_contents($batFileName, $batContent);

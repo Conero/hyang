@@ -22,6 +22,9 @@ class Template
         if($tplFile = ($option['tplFile'] ?? false)){
             $this->tplFile = $tplFile;
         }
+        if($data = ($option['data'] ?? false)){
+            $this->renderData = $data;
+        }
     }
     /**
      * 模板字符解析(生成器)

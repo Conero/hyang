@@ -33,8 +33,9 @@
 ```php
 <?php
 $option = [
-    'tplStr' =>  '模板字符串'
-    'tplFile' =>  '模板文件'
+    'tplStr' 	=>  '模板字符串'
+    'tplFile' 	=>  '模板文件'
+    'data'		=> 	[]				// 渲染参数
 ]
 ```
 

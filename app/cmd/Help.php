@@ -8,18 +8,17 @@
 
 namespace app\cmd;
 
+use hyang\surong\cmd\Controller;
 
-use sr\CmdCtrl;
-
-class Help extends CmdCtrl
+class Help extends Controller
 {
     function Main(){
-        $action = $this->_action;
+        $action = $this->action;
         if(empty($action)){
-            $this->index();
+            $this->DefaultAction();
         }
     }
-    function index(){
+    function DefaultAction(){
         echo
 '
     命令行格式： [command] action key=v k2=v2

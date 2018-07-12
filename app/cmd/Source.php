@@ -9,13 +9,13 @@
 namespace app\cmd;
 
 
-use sr\CmdCtrl;
+use hyang\surong\cmd\Controller;
 use sr\uPhar;
 
-class Source extends CmdCtrl
+class Source extends Controller
 {
     function Main(){
-        $action = $this->_action;
+        $action = $this->action;
         if($action){
             $action = substr($action, -5) == '.phar'? $action : $action . '.phar';
             if(!is_file($action)){
@@ -29,6 +29,7 @@ class Source extends CmdCtrl
             }
         }
     }
+    function DefaultAction(){}
     function unPhar($path){
         if(is_file($path)){
             $phar = new \Phar($path);

@@ -15,7 +15,10 @@ class Log
         if(!is_dir(RUN_DIR)){
             mkdir(RUN_DIR);
         }
-        $name = RUN_DIR . date('Ymd') . '.log';
+        if(!is_dir(Cli_LogD)){
+            mkdir(Cli_LogD);
+        }
+        $name = Cli_LogD . date('Ymd') . '.log';
 
         if(is_array($content) || is_object($content)){
             $content = print_r($content, true);

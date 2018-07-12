@@ -1,0 +1,12 @@
+{
+    "name": "hyang/sr-phar",
+    "description": "app for phar tool",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Joshua Conero",
+            "email": "brximl@163.com"
+        }
+    ],
+    "require": {}
+}

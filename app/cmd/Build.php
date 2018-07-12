@@ -8,21 +8,25 @@
 
 namespace app\cmd;
 
-
-use sr\CmdCtrl;
+use hyang\surong\cmd\Controller;
 use sr\Log;
 
-class Build extends CmdCtrl
+class Build extends Controller
 {
     protected $baseDir;     // 项目基础目录
     protected $fileCt = 0;  // 文件统计数
     protected $dirCt = 0;   // 目录统计数
     protected $_pharRequireScptQ = [];  // 引入程序
 
+    public function DefaultAction()
+    {
+        // TODO: Implement DefaultAction() method.
+    }
+
     function Main(){
-        $action = $this->_action;
+        $action = $this->action;
         if('.' == $action){
-            $this->project(ROOT_DIR);
+            $this->project($this->cwd);
         }else if($action && is_dir($action)){
             $this->project($action);
         }
@@ -63,7 +67,7 @@ class Build extends CmdCtrl
         //echo $dir. Cli_BR;
         if(is_dir($dir)){
             $pahrName = $this->name ?? basename($dir);
-            $distDir = standDir($this->dist ?? ROOT_DIR . 'dist/');
+            $distDir = standDir($this->dist ?? $this->cwd . 'dist/');
             if(!is_dir($distDir)){
                 mkdir($distDir);
             }
@@ -85,7 +89,7 @@ class Build extends CmdCtrl
                 . Cli_BR;
 
             // 生成脚本
-            if(!in_array('no-require-script', $this->_option)){
+            if(!in_array('no-require-script', $this->cmdOption)){
                 $this->createRequireScpt($distDir);
             }
         }

@@ -1,5 +1,5 @@
 {
-    "name": "hyang/src",
+    "name": "hyang/conero",
     "description": "posernal package",
     "type": "library",
     "authors": [
@@ -11,7 +11,7 @@
     "require": {},
     "autoload": {
         "psr-4": {
-            "hyang": ""
+            "hyang": "conero/"
         }
     }
 }

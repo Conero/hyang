@@ -10,6 +10,8 @@ namespace hyang\surong\cmd;
 
 class Cmd
 {
+    const rUnfind = 'unfind';       // 路由器解析失败
+    const rEmpty = 'empty';         // 输入条件为空
     /**
      * 获取当亲的工作目录
      * @var string
@@ -84,7 +86,7 @@ class Cmd
         $success = false;
         $command = self::$_rdo_command;
         $action = self::$_rdo_action;
-        if($action && $command){
+        if($command){
             foreach (self::$_rdo_routerTpl as $tpl => $callback){
                 $reqQueue = explode('/', $tpl);
                 $cmd1 = $reqQueue[0] ?? false;
@@ -92,8 +94,7 @@ class Cmd
                 // command
                 if($cmd1 && $act1 === false){
                     if('[command]' == $cmd1){
-                        call_user_func($callback, $command);
-                        $success = true;
+                        $success = !call_user_func($callback, $command);
                     }else if($command === $cmd1){
                         call_user_func($callback);
                         $success = true;
@@ -101,21 +102,18 @@ class Cmd
                 }else if($cmd1 && $act1){
                     // [command]/[action]
                     if('[command]' == $cmd1 && '[action]' == $act1){
-                        call_user_func($callback, $command, $action);
-                        $success = true;
+                        $success = !call_user_func($callback, $command, $action);
                     }
                     // [command]/action
                     else if('[command]' == $cmd1 && '[action]' != $act1){
                         if($action == $act1){
-                            call_user_func($callback, $command);
-                            $success = true;
+                            $success = !call_user_func($callback, $command);
                         }
                     }
                     // command/[action]
                     else if('[command]' != $cmd1 && '[action]' == $act1){
                         if($command == $cmd1){
-                            call_user_func($callback, $action);
-                            $success = true;
+                            $success = !call_user_func($callback, $action);
                         }
                     }
                     // command/action
@@ -150,8 +148,8 @@ class Cmd
             }
         }
         // unfind
-        $unfind = 'unfind';
-        $empty = 'empty';
+        $unfind = self::rUnfind;
+        $empty = self::rEmpty;
         if(!$successMk && $command){
             if(isset(self::$_rdo_cmdCtrls[$unfind])){
                 call_user_func(self::$_rdo_cmdCtrls[$unfind], $command, self::$_rdo_action);

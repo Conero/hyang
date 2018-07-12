@@ -1,0 +1,17 @@
+{
+    "name": "hyang/src",
+    "description": "posernal package",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Joshua Conero",
+            "email": "brximl@163.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "hyang": ""
+        }
+    }
+}

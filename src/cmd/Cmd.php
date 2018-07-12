@@ -31,10 +31,13 @@ class Cmd
     protected static $_rdo_routerTpl = array(); // 路由模板
 
     /**
-     * 获取当亲的工作目录
+     * 获取当前的工作目录
      * @return string
      */
     static function getDir(){
+        if(empty(self::$_rdo_dir)){
+            self::$_rdo_dir = str_replace('\\', '/', getcwd()). '/';
+        }
         return self::$_rdo_dir;
     }
 
@@ -134,7 +137,6 @@ class Cmd
      * @param array $argv
      */
     static function Run($argv){
-        self::$_rdo_dir = str_replace('\\', '/', getcwd()). '/';
         self::parseArgs($argv);
         $command = self::$_rdo_command;
         $successMk = false;
@@ -179,6 +181,11 @@ class Cmd
             if(is_file($file)){
                 require_once $file;
             }
+//            phar 模式下文件加载无效
+//            else{
+//                Fmt::line($file.'----');
+//            }
+
         });
     }
     /**

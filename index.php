@@ -16,8 +16,9 @@ require_once ROOT_DIR.'version.php';
 require_once ROOT_DIR.'common.php';
 
 require_once ROOT_DIR.'vendor/ppm.php';
-Cmd::Init(ROOT_DIR);
+//Cmd::Init(ROOT_DIR);
 //Cmd::Init(__DIR__.'/');
+Cmd::Init(ROOT_DIR);
 //Cmd::Init();
 require_once ROOT_DIR.'require.php';
 
@@ -28,7 +29,19 @@ define('Cli_OutPutD', RUN_DIR.'bist/');
 
 // 路由函数
 $RouterFn = function ($cmd, $act=null){
-    $app = 'app\\cmd\\'.$cmd;
+    // 别名命令
+    $alisDick = [
+      'build' => 'b',
+      'help'  => '?'
+    ];
+    foreach ($alisDick as $tCmd => $alis){
+        if(in_array($cmd, explode(',', $alis))){
+            $cmd = $tCmd;
+            break;
+        }
+    }
+
+    $app = 'app\\cmd\\'.ucfirst($cmd);
     //if(class_exists($app) || 1){
     if(class_exists($app)){
         $ins = new $app;

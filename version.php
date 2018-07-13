@@ -7,8 +7,8 @@
  */
 
 
-define('Sr_Version', '0.0.1');
-define('Sr_Build', '20180628');
+define('Sr_Version', '0.0.2');
+define('Sr_Build', '20180712');
 define('Sr_Since', '20180628');
 define('Sr_Name', 'phar 管理工具');
 

@@ -3,13 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d2897760-881a-470b-93ab-6c4913392d05" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/hyang-SrPhar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hyang-SrPhar.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cmd/Build.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cmd/Build.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cmd/Help.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cmd/Help.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cmd/Source.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/cmd/Source.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/READMD.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/sr.phar" beforeDir="false" afterPath="$PROJECT_DIR$/dist/sr.phar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sr/Log.php" beforeDir="false" afterPath="$PROJECT_DIR$/sr/Log.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/version.php" beforeDir="false" afterPath="$PROJECT_DIR$/version.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,13 +17,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ComposerSettings">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
-              <caret line="34" column="17" lean-forward="true" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+            <state relative-caret-position="532">
+              <caret line="34" column="17" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
               <folding>
                 <element signature="e#107#133#0#PHP" expanded="true" />
               </folding>
@@ -35,7 +37,7 @@
       <file leaf-file-name="Build.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/cmd/Build.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
+            <state relative-caret-position="247">
               <caret line="19" selection-start-line="19" selection-end-line="19" />
               <folding>
                 <element signature="e#123#155#0#PHP" expanded="true" />
@@ -56,17 +58,17 @@
       <file leaf-file-name="Cmd.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/vendor/hyang/surong/cmd/src/cmd/Cmd.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="184" column="19" lean-forward="true" selection-start-line="184" selection-start-column="19" selection-end-line="184" selection-end-column="19" />
+            <state relative-caret-position="274">
+              <caret line="184" selection-start-line="184" selection-start-column="2" selection-end-line="186" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="autoload.php" pinned="false" current-in-tab="false">
-        <entry file="phar://$PROJECT_DIR$/dist/composer.phar/vendor/autoload.php">
+      <file leaf-file-name="version.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/version.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="7" selection-start-line="7" selection-end-line="7" />
+            <state relative-caret-position="171">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -74,7 +76,7 @@
       <file leaf-file-name="Controller.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/vendor/hyang/surong/cmd/src/cmd/Controller.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
+            <state relative-caret-position="266">
               <caret line="19" selection-start-line="19" selection-end-line="19" />
             </state>
           </provider>
@@ -83,7 +85,7 @@
       <file leaf-file-name="Source.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/cmd/Source.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
+            <state relative-caret-position="475">
               <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
               <folding>
                 <element signature="e#133#165#0#PHP" expanded="true" />
@@ -104,7 +106,7 @@
       <file leaf-file-name="Log.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sr/Log.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
+            <state relative-caret-position="76">
               <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
@@ -133,7 +135,6 @@
         <option value="$PROJECT_DIR$/sr/router.php" />
         <option value="$PROJECT_DIR$/main.php" />
         <option value="$PROJECT_DIR$/sr/CmdCtrl.php" />
-        <option value="$PROJECT_DIR$/version.php" />
         <option value="$PROJECT_DIR$/require.php" />
         <option value="$PROJECT_DIR$/sr/cmd/Router.php" />
         <option value="$PROJECT_DIR$/router.php" />
@@ -147,6 +148,7 @@
         <option value="$PROJECT_DIR$/app/cmd/Source.php" />
         <option value="$PROJECT_DIR$/sr/Log.php" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/version.php" />
         <option value="$PROJECT_DIR$/vendor/hyang/surong/cmd/src/cmd/Cmd.php" />
       </list>
     </option>
@@ -160,7 +162,11 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.1" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 7.1">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/hyang/surong" />
+    </include_path>
+  </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="width" value="1925" />
@@ -356,29 +362,7 @@
               <item name="srPhar" type="b2602c69:ProjectViewProjectNode" />
               <item name="srPhar" type="462c0819:PsiDirectoryNode" />
               <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="composer.phar" type="f7f5664e:PsiPharFileNode" />
-            </path>
-            <path>
-              <item name="srPhar" type="b2602c69:ProjectViewProjectNode" />
-              <item name="srPhar" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="composer.phar" type="f7f5664e:PsiPharFileNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="srPhar" type="b2602c69:ProjectViewProjectNode" />
-              <item name="srPhar" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="composer.phar" type="f7f5664e:PsiPharFileNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="srPhar" type="b2602c69:ProjectViewProjectNode" />
-              <item name="srPhar" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
-              <item name="composer.phar" type="f7f5664e:PsiPharFileNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="composer" type="462c0819:PsiDirectoryNode" />
+              <item name="log" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="srPhar" type="b2602c69:ProjectViewProjectNode" />
@@ -473,28 +457,28 @@
       <workItem from="1530166648971" duration="7274000" />
       <workItem from="1530198057340" duration="545000" />
       <workItem from="1530238361443" duration="40000" />
-      <workItem from="1531384783401" duration="8952000" />
+      <workItem from="1531384783401" duration="9378000" />
+      <workItem from="1531445085932" duration="1359000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26709000" />
+    <option name="totallyTimeSpent" value="28494000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26541555" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32956153" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26206434" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -503,6 +487,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,13 +497,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/router.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
@@ -717,13 +695,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sr/router.php" />
-    <entry file="file://$PROJECT_DIR$/version.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="phar://$PROJECT_DIR$/sr.phar/app/cmd/Build.php" />
     <entry file="file://$PROJECT_DIR$/require.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -792,18 +763,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/vendor/hyang/surong/cmd/src/cmd/Controller.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
+        <state relative-caret-position="266">
           <caret line="19" selection-start-line="19" selection-end-line="19" />
         </state>
       </provider>
     </entry>
-    <entry file="phar://$PROJECT_DIR$/dist/srPhar.phar/vendor/hyang/surong/cmd/src/cmd/Cmd.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="136" column="8" selection-start-line="136" selection-start-column="8" selection-end-line="136" selection-end-column="64" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="phar://$PROJECT_DIR$/dist/srPhar.phar/vendor/hyang/surong/cmd/src/cmd/Cmd.php" />
     <entry file="file://$PROJECT_DIR$/sr/uPhar.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
@@ -820,14 +785,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sr/Log.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
+        <state relative-caret-position="76">
           <caret line="9" selection-start-line="9" selection-end-line="9" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/cmd/Source.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
+        <state relative-caret-position="475">
           <caret line="31" column="30" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
           <folding>
             <element signature="e#133#165#0#PHP" expanded="true" />
@@ -837,7 +802,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/cmd/Build.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
+        <state relative-caret-position="247">
           <caret line="19" selection-start-line="19" selection-end-line="19" />
           <folding>
             <element signature="e#123#155#0#PHP" expanded="true" />
@@ -845,34 +810,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="phar://$PROJECT_DIR$/dist/composer.phar/vendor/composer/autoload_real.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="45" column="1" lean-forward="true" selection-start-line="45" selection-start-column="1" selection-end-line="45" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="phar://$PROJECT_DIR$/dist/composer.phar/vendor/autoload.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="phar://$PROJECT_DIR$/dist/composer.phar/vendor/composer/autoload_real.php" />
+    <entry file="phar://$PROJECT_DIR$/dist/composer.phar/vendor/autoload.php" />
     <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="34" column="17" lean-forward="true" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
+        <state relative-caret-position="532">
+          <caret line="34" column="17" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
           <folding>
             <element signature="e#107#133#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dist/log/20180712.log">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/version.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/hyang/surong/cmd/src/cmd/Cmd.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="184" column="19" lean-forward="true" selection-start-line="184" selection-start-column="19" selection-end-line="184" selection-end-column="19" />
+        <state relative-caret-position="274">
+          <caret line="184" selection-start-line="184" selection-start-column="2" selection-end-line="186" selection-end-column="15" />
         </state>
       </provider>
     </entry>

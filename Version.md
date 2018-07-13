@@ -2,7 +2,13 @@
 - 2018年7月11日 星期三
 - Joshua Conero
 
+## v 0.0.3/20180713
 
+- *src/cmd/Fmt* 
+  - (+) 新增 ``println(...$datas) `` 方法，实现换行输出
+- *src/cmd/Io*
+  - (+) 新增 `` execCloneDir($src, $tar, $bSrc=null, $bTar=null) `` 用于执行目录复制
+  - (优化) ``cloneDir`` 方法删除内部回调函数，使用 *execCloneDir* 实现
 
 ## v 0.0.2/20180712
 

@@ -40,4 +40,12 @@ class Fmt
     static function success($msg){
         self::line($msg, ' (:-  ');
     }
+
+    /**
+     * 行调试
+     * @param mixed ...$datas
+     */
+    static function println(...$datas){
+        self::line($datas);
+    }
 }

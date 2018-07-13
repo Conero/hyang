@@ -14,6 +14,7 @@ Cmd::Init(__DIR__.'/');
 
 // 路由函数
 $RouterFn = function ($cmd, $act=null){
+    $cmd = ucfirst($cmd);
     $app = 'app\\cmd\\'.$cmd;
     if(class_exists($app)){
         $ins = new $app;

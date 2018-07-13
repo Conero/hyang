@@ -11,6 +11,7 @@ namespace app\cmd;
 
 use app\common\BatGit;
 use hyang\surong\cmd\Controller;
+use hyang\surong\cmd\Fmt;
 use hyang\surong\cmd\Io;
 
 class Git extends Controller
@@ -18,6 +19,7 @@ class Git extends Controller
     public function DefaultAction()
     {
         // TODO: Implement DefaultAction() method.
+        Fmt::line('install url=giturl   安装包从git内部');
     }
 
     /**
@@ -53,9 +55,11 @@ class Git extends Controller
             if($branch = ($args['branch'] ?? false)){
                 $url .= ' --branch='.$branch;
             }
+
             BatGit::fetch($url, $baseDir);
 
             print 'git 文件已经下载成功，正在安装包！'. "\n";
+
             // 获取git仓库所在的目录
             $gitDir = $baseDir . $dirName. '/';
             //print $url."\n";
@@ -110,7 +114,7 @@ spl_autoload_register(function ($class){
             }else{
                 print '程序包中 composer.php 文件不存('.$composer.')!'. "\n";
             }
-            Io::rmdirs($gitDir);
+            //Io::rmdirs($gitDir);
         }
         else{
             print 'url 参数不可为空！'."\n";

@@ -32,4 +32,27 @@ git clone '.$clone.'
         exec($batFileName);
         @unlink($batFileName);
     }
+
+    /**
+     * 检测是否为 git 仓库
+     * @param string $dir
+     * @return bool
+     */
+    static function isGitDir($dir){
+        $isTrue = false;
+        if(is_dir($dir)){
+            $dir = standDir($dir);
+            foreach (scandir($dir) as $v){
+                if(in_array($v, ['.', '..'])){
+                    continue;
+                }
+                $path = $dir . $v;
+                if($v == '.git' && is_dir($path)){
+                    $isTrue = true;
+                    break;
+                }
+            }
+        }
+        return $isTrue;
+    }
 }

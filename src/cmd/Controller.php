@@ -13,7 +13,13 @@ abstract class Controller implements InterContrl
 {
     protected $cmdOption = array();
     protected $cmdArgs = array();
+    /**
+     * @var string
+     */
     protected $cwd;
+    /**
+     * @var string
+     */
     protected $action;
     function __construct()
     {

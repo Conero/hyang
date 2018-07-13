@@ -183,7 +183,7 @@ class Cmd
             }
 //            phar 模式下文件加载无效
 //            else{
-//                Fmt::line($file.'----');
+//                Fmt::line($file.' !!!');
 //            }
 
         });

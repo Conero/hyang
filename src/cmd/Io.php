@@ -9,6 +9,8 @@
 namespace hyang\surong\cmd;
 
 
+use app\common\Log;
+
 class Io
 {
     /**
@@ -66,6 +68,37 @@ class Io
     }
 
     /**
+     * 目录复制执行
+     * @param string $src
+     * @param string $tar
+     * @param null|string $bSrc
+     * @param null|string $bTar
+     */
+    static function execCloneDir($src, $tar, $bSrc=null, $bTar=null){
+        // 复制顶级目录
+        $bSrc = $bSrc ? $bSrc : $src;
+        $bTar = $bTar? $bTar : $tar;
+        // 父类
+        $src = self::standir($src);
+        foreach (scandir($src) as $v){
+            if(in_array($v, ['.', '..'])){
+                continue;
+            }
+            $path = $src . $v;
+            Log::debug($src , $v);
+            $path2 = str_replace($bSrc, $bTar, $path);
+            if(is_dir($path)){
+                self::mkdirs($path2);
+                self::execCloneDir($path, $path2, $bSrc, $bTar);
+            }
+            else{
+                //Fmt::println($path, $path2);
+                //Log::debug($path, $path2);
+                copy($path, $path2);
+            }
+        }
+    }
+    /**
      * 目录赋值
      * @param string $src
      * @param string $tar
@@ -76,26 +109,7 @@ class Io
             $src = self::standir($src);
             $tar = self::standir($tar);
             self::rmdirs($tar);
-            // 复制执行函数
-            static $cloneDirHdFn = null;
-            $cloneDirHdFn = function ($s, $t) use ($src, $tar, $cloneDirHdFn){
-                $s = self::standir($s);
-                foreach (scandir($s) as $v){
-                    if(in_array($v, ['.', '..'])){
-                        continue;
-                    }
-                    $path = $s . $v;
-                    $path2 = str_replace($src, $tar, $path);
-                    if(is_dir($path)){
-                        self::mkdirs($path2);
-                        call_user_func($cloneDirHdFn, $path, $path2);
-                    }
-                    else{
-                        copy($path, $path2);
-                    }
-                }
-            };
-            call_user_func($cloneDirHdFn, $src, $tar);
+            self::execCloneDir($src, $tar);
             return true;
         }
         else{

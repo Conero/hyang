@@ -1,17 +1,14 @@
 {
-    "name": "hyang/conero",
-    "description": "posernal package",
-    "type": "library",
+    "name": "administrator/hyang",
+    "description": "test with oracle",
+    "type": "project",
     "authors": [
         {
             "name": "Joshua Conero",
             "email": "brximl@163.com"
         }
     ],
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "hyang\\": "conero/"
-        }
+    "require": {
+        "fzaninotto/faker": "^1.8"
     }
 }

@@ -48,6 +48,10 @@ class Data extends AppAbstract
         //var_dump([$logSth->errorInfo(), $logSthCt, $logSth->errorCode(), 2]);
 
         $hideRun = $this->args('hideRun');
+        $isEnLang = false;
+        // php7.0 字符串处理在windows 乱码(utf8-gbk)
+        $isPhp70 = substr(phpversion(), 0, 3) == '7.0';
+        if($isPhp70) $isEnLang = true;
 
         // 子数据写入
         $code = uniqid();           // 唯一分组码
@@ -66,7 +70,13 @@ class Data extends AppAbstract
                 'log_id'     => $logId
             ]);
             if(!$hideRun){
-                print "  ".$i."=>  数量： ".$num."(".$susccess."), 合计用时： ".$sec()."s, 内存： ".$getBtye()."字节\r\n";
+                if($isEnLang){
+                    print "  ".$i." =>  amount: ".$num."(".$susccess."{".
+                        round($susccess/$num, 3)."}), rtimes: ".$sec()."s, memory: ".$getBtye()."byte\r\n";
+                }
+                else{
+                    print "  ".$i." =>  数量： ".$num."(".$susccess."{".round($susccess/$num, 3)."}), 用时： ".$sec()."s, 内存： ".$getBtye()."字节\r\n";
+                }
             }
             $i += 1;
         }
@@ -74,7 +84,11 @@ class Data extends AppAbstract
         // 数据更新
 
         $pdo->exec('update jclog set "rtime"='.$sec().', "memory"='.$getBtye().' where "id"=\''.$logId.'\'');
-        print "\r\n  数量： ".$num."(".$susccess."), 本次用时： ".$sec()."s, 内存： ".$getBtye()."字节\r\n";
+        if($isEnLang){
+            print "\r\n  (php-".phpversion().")amont: ".$num."(".$susccess."), rtimes: ".$sec()."s, memory: ".$getBtye()."byte\r\n";
+        }else{
+            print "\r\n  (php-".phpversion().")数量： ".$num."(".$susccess."), 本次用时： ".$sec()."s, 内存： ".$getBtye()."字节\r\n";
+        }
         //var_dump([$sth->errorInfo()]);
     }
     /**

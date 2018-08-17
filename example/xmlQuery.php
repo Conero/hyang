@@ -84,9 +84,22 @@ class Test{
         });
         $read->read();
     }
+    static function xmlWriter(){
+        $xr = new \hyang\xml\Writer();
+        $xr->tag('data')
+            ->tag('error')
+            ->attr('has', 'Y')
+            ->attr('msg', 'msg')
+            ->close();
+        ;
+
+        echo $xr->getXmlStr()."\r\n";
+    }
 }
 $span = "  ";
 
 echo $span."php-".phpversion()."： \r\n";
+
 //Test::xmlStr();
-Test::xmlReader();
+//Test::xmlReader();
+Test::xmlWriter();

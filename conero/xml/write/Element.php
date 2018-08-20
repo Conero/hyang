@@ -52,12 +52,18 @@ class Element
     }
 
     /**
-     * @param string $attr
-     * @param mixed $value
+     * @param string|array $attr
+     * @param mixed|null $value
      * @return $this
      */
-    function attr($attr, $value){
-        $this->xmlWt->writeAttribute($attr, $value);
+    function attr($attr, $value=null){
+        if(is_array($attr)){
+            foreach ($attr as $k=>$v){
+                $this->xmlWt->writeAttribute($k, $v);
+            }
+        }elseif ($attr && $value){
+            $this->xmlWt->writeAttribute($attr, $value);
+        }
         return $this;
     }
 

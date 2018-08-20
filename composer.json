@@ -8,7 +8,14 @@
             "email": "brximl@163.com"
         }
     ],
-    "require": {},
+    "require": {
+        "php": "^7.0",
+        "ext-xml": "*",
+        "ext-curl": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "ext-xmlwriter": "*"
+    },
     "autoload": {
         "psr-4": {
             "hyang\\": "conero/"

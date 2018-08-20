@@ -141,7 +141,7 @@ class Net{
         return $res? json_decode($res, true): [];
     }
     // curl 获取数据 * 设置 $data 时 为POST/否则GET
-    // $data = {url:请求地址,type:post,post:array,curlopt:curl 参数值}/string; 
+    // $data = {url:请求地址,type:post,post:array,curlopt:curl 参数值}/string;
     public static function curl($data=[])
     {
         $url = isset($data['url'])? $data['url']: self::$netUrl;
@@ -156,7 +156,7 @@ class Net{
         elseif(isset($data['post'])){
             if(!is_array($data['post'])) $data['post'] = json_decode($data['post'],true);
             curl_setopt ($ch, CURLOPT_POST, 1 );
-		    curl_setopt ($ch, CURLOPT_POSTFIELDS, $data['post']);
+            curl_setopt ($ch, CURLOPT_POSTFIELDS, $data['post']);
             curl_setopt ($ch, CURLOPT_USERAGENT,'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0');
         }
         curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
@@ -182,7 +182,7 @@ class Net{
             if(isset($heads['Set-Cookie'])){
                 $cookieString = is_array($heads['Set-Cookie'])? implode(';',$heads['Set-Cookie']): $heads['Set-Cookie'];
             }
-            else $cookieString = ""; 
+            else $cookieString = "";
             if($cookieString){
                 if(!is_dir($path)) Util::mkdirs($path);
                 file_put_contents($saveFile,$cookieString);
@@ -190,10 +190,10 @@ class Net{
         }
         return $cookieString;
     }
-    // 设置 url 
+    // 设置 url
     public static function setUrl($url){
         self::$netUrl = $url;
-    }       
+    }
     // 解析为数组
     public static function toArray()
     {
@@ -235,17 +235,36 @@ class Net{
         self::get($url);
         $data = self::toArray();
         if(isset($data['origin'])) return $data['origin'];
-        return request()->ip();
+        return self::ip();
     }
 
+    /**
+     * @return null|string
+     */
+    static function ip(){
+        return $_SERVER['REMOTE_ADDR'] ?? $_SERVER['SERVER_ADDR'] ?? null;
+    }
     /**
      * 获取基础当前请求域名
      * @return string
      */
     public static function getBaseUrl(){
         return $_SERVER['REQUEST_SCHEME']
-        .'://'.$_SERVER["HTTP_HOST"]
-        .($_SERVER["QUERY_STRING"]? str_replace('?'.$_SERVER["QUERY_STRING"],'',$_SERVER["REQUEST_URI"]):'/');
+            .'://'.$_SERVER["HTTP_HOST"]
+            .($_SERVER["QUERY_STRING"]? str_replace('?'.$_SERVER["QUERY_STRING"],'',$_SERVER["REQUEST_URI"]):'/');
+    }
+    static function getHost(){
+        $scheme = $_SERVER['REQUEST_SCHEME'];
+        $port = $_SERVER['SERVER_PORT'];
+        $host = $scheme
+            . '://'. $_SERVER['SERVER_NAME'];
+
+        $noNeedPort = ($scheme == 'http' && $port == '80') || ($scheme == 'https' && $port == '443');
+        if(!$noNeedPort){
+            $host .= ':'.$port;
+        }
+        $host .= "/";
+        return $host;
     }
     /**
      * 更加get参数更新地址

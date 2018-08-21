@@ -253,6 +253,11 @@ class Net{
             .'://'.$_SERVER["HTTP_HOST"]
             .($_SERVER["QUERY_STRING"]? str_replace('?'.$_SERVER["QUERY_STRING"],'',$_SERVER["REQUEST_URI"]):'/');
     }
+
+    /**
+     * 获取当前 host 页面
+     * @return string
+     */
     static function getHost(){
         $scheme = $_SERVER['REQUEST_SCHEME'];
         $port = $_SERVER['SERVER_PORT'];
@@ -265,6 +270,19 @@ class Net{
         }
         $host .= "/";
         return $host;
+    }
+
+    /**
+     * 获取标准url地址
+     * @param string $url
+     * @return string
+     */
+    static function stdUrl($url){
+        if(strpos($url, 'http') === false){
+            $url = self::getHost(). $url;
+            $url = str_replace('//', '/', $url);
+        }
+        return $url;
     }
     /**
      * 更加get参数更新地址
@@ -301,9 +319,10 @@ class Net{
     /**
      * 支持 https 的请求封装，测试 php7+, 需要在 php5 环境下测试
      * @param array|string $option {url, data, method, header}
-     * @return mixed
+     * @param bool $err
+     * @return mixed|string
      */
-    public static function curls($option){
+    public static function curls($option, &$err=false){
         // 数据预处理
         $method ='GET';
         $data = null;
@@ -327,6 +346,7 @@ class Net{
         else{
             $url = $option;
         }
+        $url = self::stdUrl($url);
         $method = strtoupper($method);
         $ch = curl_init();
         if($method == 'GET' && is_array($data)){
@@ -359,11 +379,14 @@ class Net{
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
             }
         }
-        curl_setopt ( $ch, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);  // 从证书中检查SSL加密算法是否存在
         curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // 模拟用户使用的浏览器
         $res = curl_exec($ch);
+        if($res === false){
+            $err = curl_error($ch);
+        }
         curl_close($ch);
         return $res;
     }

@@ -378,8 +378,12 @@ class Net{
             if($data){
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
             }
+            //curl_setopt($ch, CURLOPT_HTTPHEADER, array('Expect:'));
+            //curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Length: ' . strlen($fields)));
         }
-        curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1 );
+        //curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 0);    // 不限制请求超时
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1 );
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // 跳过证书检查
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);  // 从证书中检查SSL加密算法是否存在
         curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // 模拟用户使用的浏览器

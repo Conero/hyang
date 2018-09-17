@@ -11,6 +11,7 @@ namespace hyang;
 
 class Debug
 {
+    const defOnceKey = 'J.Conero';
     /**
      * @var DebugImpl
      */
@@ -116,12 +117,20 @@ class Debug
      * @param mixed $name
      * @param mixed ...$datas
      */
-    static function once($name, ...$datas){
+    static function once($name=null, ...$datas){
         static $onceDick = [];
+        $name = $name ?? self::defOnceKey;
         $key = sha1($name);
         if(!isset($onceDick[$key])){
             $onceDick[$key] = true;
             self::debug(...$datas);
         }
+    }
+
+    /**
+     * @param mixed ...$datas
+     */
+    static function single(...$datas){
+        self::once(self::defOnceKey, ...$datas);
     }
 }

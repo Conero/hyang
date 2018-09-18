@@ -20,6 +20,9 @@ class Rand
     const UnicodeZhHex1 = '4E00';
     const UnicodeZhHex2 = '9FA5';
 
+    const pathRscData = __DIR__.'/resource/data/';
+    const pathDataMobile = __DIR__.'/resource/data/zh-CN/mobile.ini';
+
     static protected $UnicodeZhDec1 = -1;
     static protected $UnicodeZhDec2 = -1;
 
@@ -184,6 +187,16 @@ class Rand
         }
         return $format;
     }
+
+    /**
+     * 数组的数据值
+     * @param $array
+     * @return mixed
+     */
+    static function getArrayV($array){
+        $k = array_rand($array);
+        return $array[$k];
+    }
     /**
      * 获取小写字母： ASCII: 97-122
      * @return string
@@ -253,4 +266,70 @@ class Rand
         return ($data['zh'] ?? null);
     }
 
+    /**
+     * @return bool
+     */
+    static function bool(){
+        return self::queue(true, false);
+    }
+    /**
+     * @param null|string $fmt
+     * @return false|string
+     */
+    static function date($fmt=null){
+        $fmt = $fmt ?? 'Y-m-d H:i:s';
+        return date($fmt, mt_rand(1000000000, 9999999999));
+    }
+
+    /**
+     * @return int
+     */
+    static function unix(){
+        return mt_rand(1000000000, 9999999999);
+    }
+    /**
+     * 队里搅拌次数
+     * @param array $queue
+     * @param int $cc
+     * @return mixed
+     */
+    static function stirQueue(&$queue, $cc=2){
+        $i = 0;
+        while ($i < $cc){
+            shuffle($queue);
+            $i++;
+        }
+        return $queue;
+    }
+    /**
+     * 队列随机抽取
+     * @param mixed ...$array
+     * @return mixed
+     */
+    static function queue(...$array){
+        $key = array_rand($array);
+        return $array[$key];
+    }
+
+    /**
+     * 队列随机删除
+     * @param $queue
+     * @param int $n
+     * @return array|mixed|null
+     */
+    static function queueReduce(&$queue, $n=1){
+        shuffle($queue);
+        $data = [];
+        $count = count($queue);
+        $n = $n < $count? $n : $count;  // 取小的值
+        $i = 1;
+        while($i <= $n){
+            $data[] = array_pop($queue);
+            $i++;
+        }
+        if($n == 1){
+            return empty($data)? null: $data[0];
+        }
+        return $data;
+    }
 }

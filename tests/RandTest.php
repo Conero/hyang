@@ -15,6 +15,4 @@ class RandTest extends \PHPUnit\Framework\TestCase
     {
         echo Rand::getId();
     }
-
-
 }

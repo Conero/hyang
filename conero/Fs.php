@@ -28,4 +28,18 @@ class Fs{
         $delimiter = $delimiter? $delimiter:',';
         return self::$dirArray? implode($delimiter,self::$dirArray):'';
     }
+
+    /**
+     * 标准目录格式
+     * @param string $dir
+     * @return mixed|string
+     */
+    static function getStdDir($dir){
+        $dir = str_replace('\\', '/', $dir);
+        if($dir && '/' != substr($dir, -1)){
+            $dir .= '/';
+        }
+        $dir = preg_replace('/[\/]{2,}/', '/', $dir);
+        return $dir;
+    }
 }

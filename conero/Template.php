@@ -147,4 +147,45 @@ class Template
     {
         return $this->renderData[$name] ?? null;
     }
+
+    /**
+     * 简单的模板解析：模板 {key}|{json.key.knx}
+     * @param string $s
+     * @param array $vars
+     * @return string
+     */
+    static function rend($s, $vars=[]){
+        $reg = '/{[^{}]*}/';
+        preg_match_all($reg, $s, $matches);
+        $matches = is_array($matches) && count($matches) > 0? $matches[0]: [];
+        foreach ($matches as $mt){
+            $key = preg_replace('/{|}/', '', $mt);
+            $key = trim($key);
+            $value = '';
+            // 直接的键值
+            if(isset($vars[$key])){
+                $value = $vars[$key];
+            }elseif (strpos($key, '.') !== false){  // 多级点 "." 值访问
+                $keys = explode('.', $key);
+                $hasV = true;
+                $tmpV = $vars;
+                foreach ($keys as $k){
+                    if($hasV && is_array($tmpV) && isset($tmpV[$k])){
+                        $tmpV = $tmpV[$k];
+                        $hasV = true;
+                        continue;
+                    }
+                    $hasV = false;
+                    break;
+                }
+                // 最终的值
+                if($hasV){
+                    $value = $tmpV;
+                }
+            }
+
+            $s = str_replace($mt, $value, $s);
+        }
+        return $s;
+    }
 }

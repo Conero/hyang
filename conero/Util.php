@@ -3,40 +3,15 @@ namespace hyang;
 use Exception;
 use Closure;
 class Util{
-    private static $_mkdirs_cur;
     // 多级目录生成器 - 兼容 dir 函数
-    public static function mkdirs($path,$isfle=false){
-        $path = empty(self::$_mkdirs_cur)? str_replace('\\','/',$path) : $path;
+    public static function mkdirs($path,$isfle=false, $mode=null){
+        $path = str_replace('\\', '/', $path);
         if($isfle){
             if(is_file($path)) return false;
             $path = pathinfo($path)['dirname']; 
         }
         if(!is_dir($path)){            
-            if(empty(self::$_mkdirs_cur)){
-                // 尝试直接使用 mkdir 函数
-                // try{if(mkdir($path)) return true;}catch(Exception $e){}
-                // 兼容 mkdir 函数
-                if(is_dir(dirname($path))){
-                    return mkdir($path);
-                }
-                self::$_mkdirs_cur = $path;
-            }
-            self::mkdirs(dirname($path));
-        }
-        else{
-            if(self::$_mkdirs_cur){
-                $firstDir = self::$_mkdirs_cur;
-                self::$_mkdirs_cur = null;
-                $_basedir = $path;
-                $firstDir = str_replace($_basedir,'',$firstDir);
-                if(strpos($firstDir,'/') === 0) $firstDir = substr($firstDir,1);
-                foreach(explode('/',$firstDir) as $v){
-                    if(!is_dir($_basedir.'/'.$v)){
-                        mkdir($_basedir.'/'.$v);
-                        $_basedir = $_basedir.'/'.$v;
-                    }
-                }
-            }
+            mkdir($path, $mode, true);
         }
     }
     // 删除目录下所有文件以及子目录

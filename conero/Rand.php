@@ -332,4 +332,69 @@ class Rand
         }
         return $data;
     }
+
+    /**
+     * 随机生成中国手机号码
+     * @return mixed
+     */
+    static function cnPhone(){
+        $phone = self::queue(self::CMCCPhone(), self::CUCCPhone(), self::CTCCPhone());
+        return $phone;
+    }
+
+    /**
+     * 移动电话生成
+     * @return string
+     */
+    static function CMCCPhone(){
+        $str = '134,135,136,137,138,139,147,150,151,152,157,158,159,172,178,182,183,184,187,188,195,198,197';
+        return self::phone_maker($str);
+    }
+
+    /**
+     * 电话号码生成器
+     * @param $str string
+     * @return string
+     */
+    protected static function phone_maker($str){
+        $str = explode(',', $str);
+        $no = self::queue(...$str);
+        $all = 11 - strlen($no);
+        $no .= self::numberStr($all);
+
+        return $no;
+    }
+
+    /**
+     * 联通号码生成
+     * @return string
+     */
+    static function CUCCPhone(){
+        $str = '130,131,132,145,155,156,166,171,175,176,185,186,196';
+        return self::phone_maker($str);
+    }
+
+    /**
+     * 电信号码生成
+     * @return string
+     */
+    static function CTCCPhone(){
+        $str = '133,149,153,173,177,180,181,189,191,193,199,190';
+        return self::phone_maker($str);
+    }
+
+    /**
+     * 数字字符串
+     * @param int $vlen
+     * @return string
+     */
+    static function numberStr($vlen=1){
+        $vlist = [];
+        $i = 0;
+        while ($i < $vlen){
+            $vlist[] = mt_rand(0, 9);
+            $i += 1;
+        }
+        return implode('', $vlist);
+    }
 }

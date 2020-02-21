@@ -242,7 +242,7 @@ class Rand
             $dick = array_merge($dick, range(self::AsciiUpper1, self::AsciiUpper2));
             $dick = array_merge($dick, range(self::AsciiLower1, self::AsciiLower2));
         }
-        $num = mt_rand(0, count($dick));
+        $num = mt_rand(0, count($dick)-1);
         return chr($dick[$num]);
     }
     /**

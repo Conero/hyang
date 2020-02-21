@@ -227,7 +227,7 @@ class Rand
             $dick = array_merge($dick, range(self::AsciiUpper1, self::AsciiUpper2));
             $dick = array_merge($dick, range(self::AsciiLower1, self::AsciiLower2));
         }
-        $num = mt_rand(0, count($dick));
+        $num = mt_rand(0, count($dick)-1);
         return chr($dick[$num]);
     }
 
@@ -360,7 +360,7 @@ class Rand
         $str = explode(',', $str);
         $no = self::queue(...$str);
         $all = 11 - strlen($no);
-        $no .= self::numberStr($all);
+        $no .= self::getNumStr($all);
 
         return $no;
     }
@@ -388,7 +388,7 @@ class Rand
      * @param int $vlen
      * @return string
      */
-    static function numberStr($vlen=1){
+    static function getNumStr($vlen=1){
         $vlist = [];
         $i = 0;
         while ($i < $vlen){

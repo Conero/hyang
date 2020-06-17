@@ -1,0 +1,14 @@
+{
+    "name": "conero/yangs",
+    "authors": [
+        {
+            "name": "Conero",
+            "email": "conero@163.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "topthink/framework": "6.0.0"
+    }
+}

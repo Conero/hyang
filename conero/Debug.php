@@ -113,6 +113,36 @@ class Debug
     }
 
     /**
+     * 简单的数据调式
+     * @return string
+     */
+    static function trace_simple(){
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        array_shift($backtrace);
+        array_shift($backtrace);
+
+        $simple = [];
+        $idx = count($backtrace) - 1;
+        foreach ($backtrace as $v){
+            $file = preg_replace('/\\\\+/', '/', $v['file'] ?? 'INTERNAL');
+            $line = $v['line'] ?? null;
+            $type = $v['type'] ?? '';
+            $function = $v['function'] ?? '';
+            $class = $v['class'] ?? '';
+
+            $line = $file . ($line? "($line)": '');
+            $line = "\t#$idx ".$class. $type.$function. ($line? "\n\t\t$line": '');
+            $simple[] = $line;
+            $idx -= 1;
+        }
+        $debugStr = implode("\n", $simple);
+        if($debugStr){
+            $debugStr = "\n$debugStr";
+        }
+        return $debugStr;
+    }
+
+    /**
      * 单次调试
      * @param mixed $name
      * @param mixed ...$datas

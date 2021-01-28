@@ -1,5 +1,5 @@
 {
-    "version": "2.0.5",
+    "version": "2.1.0-dev",
     "name": "hyang/conero",
     "description": "posernal package",
     "type": "library",
@@ -22,11 +22,11 @@
         "phpunit/phpunit": "^8.1.5"
     },
     "autoload-dev": {
-        "hyang\\": "/conero"
+        "hyang\\": "/src"
     },
     "autoload": {
         "psr-4": {
-            "hyang\\": "conero/"
+            "hyang\\": "/src"
         }
     }
 }

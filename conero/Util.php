@@ -135,7 +135,7 @@ class Util{
      /**
      * 不定参数- 打印
      * @param mixed  $data      输出变量/回掉函数
-     * @return 输出屏幕
+     * @return void
      */
     public static function println(){
         /*
@@ -219,6 +219,7 @@ class Util{
         }
         return $ret;
     }
+
     /**
      * 2017年2月16日 星期四  获取毫秒数
      * @param float  $time_start 起始时间
@@ -230,6 +231,42 @@ class Util{
         $time_end = ((float)$usec + (float)$sec);
         return $time_start? ($time_end-$time_start):$time_end;
     }
+
+    /**
+     * 获取运行秒，得到回调函数
+     * @return Closure
+     */
+    static function getMsCall(){
+        $getRuntime = function (){
+            list($usec, $sec) = explode(" ", microtime());
+            return ((float)$usec + (float)$sec);
+        };
+        $startMs = $getRuntime();
+        return function () use($startMs, $getRuntime){
+            return $getRuntime() - $startMs;
+        };
+    }
+
+    /**
+     * 获取运行内存兆消耗
+     * @return float|int
+     */
+    static function getUMM(){
+        $m = memory_get_usage();
+        return $m / 1048576;
+    }
+
+    /**
+     * 获取运行内存，得到回调函数
+     * @return Closure
+     */
+    static function getUMMCall(){
+        $m = memory_get_usage();
+        return function () use ($m){
+          return (memory_get_usage() - $m) / $m;
+        };
+    }
+
     /**
      * 2017年2月25日 星期六   数据(数组)清洗
      * @param array  $data 数组
@@ -283,10 +320,12 @@ class Util{
          }
          return $data;
      }
-     /**
+
+    /**
      * 2017年2月27日 星期一   获取星期
-     * @param mixed  $dt  日期参数， 可为时间对象或者时间字符串
-     * @return string
+     * @param mixed $dt 日期参数， 可为时间对象或者时间字符串
+     * @return mixed
+     * @throws Exception
      */
      public static function getWeek($dt)
      {
